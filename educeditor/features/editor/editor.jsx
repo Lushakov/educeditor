@@ -1,18 +1,12 @@
-// Import React dependencies.
 import React, { useCallback, useMemo, useState } from 'react'
-// Import the Slate editor factory.
+
 import { createEditor, Editor, Transforms } from 'slate'
 
-// Import the Slate components and React plugin.
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react'
-import CodeElement from './elements/code-element/code-element'
 import { handleKeyDown } from './handle-key-down'
 import { renderElement } from './elements/render-element'
 import { renderLeaf } from './render-leaf'
-import { CommandsController } from './commands-controller/commands-controller'
-import EditorToolbar from './editor-toolbar/editor-toolbar'
-// import { renderElement } from './elements/renderElement'
-
+import Toolbar from '../toolbar/toolbar'
 
 
 
@@ -34,9 +28,7 @@ const EditorApp = () => {
 
     return (
         <>
-            <EditorToolbar
-                editor={editor}
-            />
+
             <Slate
                 editor={editor}
                 value={value}
@@ -47,14 +39,14 @@ const EditorApp = () => {
                         op => 'set_selection' !== op.type
                     )
                     if (isAstChange) {
-                        // Save the value to Local Storage.
                         const content = JSON.stringify(value)
                         localStorage.setItem('content', content)
                     }
                 }}
             >
+                <Toolbar/>
                 <Editable
-                    className="p-3"
+                    className="p-3 bg-white shadow-sm"
                     renderElement={memoRenderElement}
                     renderLeaf={memoRenderLeaf}
                     onKeyDown={(event) => handleKeyDown({ event, editor })}
