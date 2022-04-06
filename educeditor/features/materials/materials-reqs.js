@@ -49,10 +49,12 @@ export const getMaterialDetails = createAsyncThunk(
 
 export const updateMaterial = createAsyncThunk(
     "materials/updateMaterialAction",
-    async ({ID, unit}) => {
+    async (_, { getState }) => {
+        const unit = getState().materials.unit
         try {
             const response = await API.put(to("update_material"), {
-                ID, unit
+                ID: unit._id, 
+                unit
             });
             return response.data;
         } catch(error) {

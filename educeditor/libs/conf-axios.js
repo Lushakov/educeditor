@@ -41,7 +41,8 @@ export const createAPI = (onUnauthorized) => {
   const api = axios.create({
     timeout: REQUEST_TIMEOUT,
     withCredentials: false,
-    baseURL: `http://localhost:8085/api`
+    // baseURL: `http://localhost:8085/api`
+    baseURL: `http://45.135.134.152:8086/api`
   });
 
   const onSuccess = (response) => response;

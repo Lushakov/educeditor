@@ -3,10 +3,11 @@ import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import styled from "styled-components"
 import Modal from "../../components/modal/modal"
-import { addNewSlice, selectUnit, sliceTemplate } from "./materials-slice"
+import { addNewSlice, saveCurrentScliceToUnit, selectCurrentSlice, selectUnit, sliceDataTemplate, switchCurrentSlice } from "./materials-slice"
 import cloneDeep from "lodash/cloneDeep";
 import { getMaterialDetails, updateMaterial } from "./materials-reqs"
 import { scrollbarHideMixin, scrollbarMixin } from "../../styles/mixins"
+import { useSaveMaterial } from "./hooks/useSaveMaterial"
 
 const Wrapper = styled.div`
     display: flex;
@@ -32,6 +33,7 @@ const SlicesBlock = styled.div`
 const SlicesItem = styled.div`
     padding: 10px;
     border-radius: 4px;
+    ${props => props.active ? 'background-color: #f2f1fb;' : ''}
     :hover {
         background-color: #e8e7f0;
         cursor: pointer;
@@ -44,7 +46,12 @@ const SlicesItem = styled.div`
 const MaterialIdSliceItems = () => {
     const dispatch = useDispatch()
 
+    const { handleSaveUnit } = useSaveMaterial()
+
     const unit = useSelector(selectUnit)
+
+    const currentSlice = useSelector(selectCurrentSlice)
+
     const [isModalCreate, setIsModalCreate] = useState(false)
     const [name, setName] = useState('')
     const [errMsg, setErrMsg] = useState('')
@@ -54,25 +61,16 @@ const MaterialIdSliceItems = () => {
         const index = unit.data.findIndex(item => item.name === name)
         if (index !== -1) { setErrMsg('Такое имя уже существует'); return; }
 
-        const copyUnit = cloneDeep(unit)
-        copyUnit.data.push({
-            name,
-            data: cloneDeep(sliceTemplate)
-        })
-
+        dispatch(addNewSlice(name))
+        
         try {
-            await dispatch(updateMaterial({
-                ID: unit._id,
-                unit: copyUnit
-            })).unwrap()
-            dispatch(getMaterialDetails({ ID: unit._id }))
+            await dispatch(updateMaterial()).unwrap()
             closeModal()
         } catch (err) {
             setErrMsg('Ошибка создания')
         }
-
-
     }
+
 
     const closeModal = () => {
         setErrMsg('')
@@ -86,7 +84,15 @@ const MaterialIdSliceItems = () => {
                 <SlicesBlock>
                     <h4>{unit?.name}</h4>
                     {unit?.data?.map(({ name }) => (
-                        <SlicesItem class="">
+                        <SlicesItem 
+                            class=""
+                            active={name === currentSlice?.name}
+                            onClick={() => {
+                                dispatch(saveCurrentScliceToUnit())
+                                dispatch(switchCurrentSlice(name))
+                                handleSaveUnit()
+                            }}
+                        >
                             <div class="fw-bold">{name}</div>
                             <div>Здесь управление слайсом</div>
                         </SlicesItem>

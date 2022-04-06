@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 
 import { createEditor, Editor, Transforms } from 'slate'
 
@@ -7,41 +7,29 @@ import { handleKeyDown } from './handle-key-down'
 import { renderElement } from './elements/render-element'
 import { renderLeaf } from './render-leaf'
 import Toolbar from '../toolbar/toolbar'
+import { useDispatch, useSelector } from 'react-redux'
+import { selectCurrentSlice, changeCurrentSliceData } from '../materials/materials-slice'
 
 
 
 const EditorApp = () => {
+    const dispatch = useDispatch()
+
+    const currentSlice = useSelector(selectCurrentSlice)
+
     // const editor = useMemo(() => withReact(createEditor()), [])
     const [editor] = useState(() => withReact(createEditor()))
-
-    const [value, setValue] = useState(
-        process.browser && JSON.parse((localStorage.getItem('content')))
-        || [
-            {
-                type: 'paragraph',
-                children: [{ text: 'A line of text in a paragraph.' }],
-            },
-        ])
 
     const memoRenderElement = useCallback(renderElement, [])
     const memoRenderLeaf = useCallback(renderLeaf, [])
 
     return (
         <>
-
             <Slate
                 editor={editor}
-                value={value}
+                value={currentSlice.data}
                 onChange={value => {
-                    setValue(value)
-
-                    const isAstChange = editor.operations.some(
-                        op => 'set_selection' !== op.type
-                    )
-                    if (isAstChange) {
-                        const content = JSON.stringify(value)
-                        localStorage.setItem('content', content)
-                    }
+                    dispatch(changeCurrentSliceData(value))
                 }}
             >
                 <Toolbar/>

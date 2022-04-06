@@ -6,13 +6,14 @@ import { useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
 import { createMaterials, deleteMaterial, fetchMaterials } from "./materials-reqs"
 import { useSelector } from "react-redux"
-import { selectList, unitTemplate } from "./materials-slice"
+import { selectList, unitDataTemplate } from "./materials-slice"
 import { dateOption } from "../../libs/consts"
 import styled from "styled-components"
 
 
 const DeleteButton = styled.div`
     display: inline-block;
+    cursor: pointer;
     :hover {
         color: black;
     }
@@ -35,7 +36,7 @@ const Materials = () => {
     const handleCreateButton = async () => {
         try {
             setIsLoading(true)
-            const result = await dispatch(createMaterials({ name, data: [...unitTemplate] })).unwrap()
+            const result = await dispatch(createMaterials({ name, data: [...unitDataTemplate] })).unwrap()
             setIsLoading(false)
             setName('')
             setErrMsg('')
@@ -80,7 +81,6 @@ const Materials = () => {
                 <div className="list-group mt-3">
                     {materialList?.data?.map((item) => (
                         <a
-                            href="#"
                             className="list-group-item list-group-item-action"
                             aria-current="true" onClick={() => router.push(Path.MATERIALS + `/${item._id}`)}
                         >
