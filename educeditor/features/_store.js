@@ -1,10 +1,10 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import materials from './materials/materials-slice';
+import units from './units/slice/units-slice';
 
 
 export default configureStore({
   reducer: {
-    materials,
+    units,
   },
 });

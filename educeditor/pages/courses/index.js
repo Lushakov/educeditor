@@ -2,7 +2,7 @@ import MaterialsTabsLayout from "../../components/layouts/materials-tabs-layout/
 import Lessons from "../../features/lessons/lessons"
 import Navbar from "../../features/navbar/navbar"
 
-const LessonsPage = () => {
+const CoursesPage = () => {
     return (
         <>
             <Navbar />
@@ -12,4 +12,4 @@ const LessonsPage = () => {
         </>
     )
 }
-export default LessonsPage
+export default CoursesPage

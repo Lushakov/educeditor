@@ -1,5 +1,5 @@
 import { Editor, Text, Transforms } from "slate"
-import { CommandsController } from "./commands-controller/commands-controller"
+import { CC } from "./commands-controller/commands-controller"
 
 export const handleKeyDown = ({ event, editor }) => {
   if (!event.ctrlKey) {
@@ -10,13 +10,13 @@ export const handleKeyDown = ({ event, editor }) => {
   switch (event.key) {
     case '`': {
       event.preventDefault()
-      CommandsController.toggleCodeBlock(editor)
+      CC.toggleCodeBlock(editor)
       break
     }
 
     case 'b': {
       event.preventDefault()
-      CommandsController.toggleBoldMark(editor)
+      CC.toggleBoldMark(editor)
       break
     }
   }

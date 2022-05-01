@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { updateMaterial } from "../materials-reqs"
-import { saveCurrentScliceToUnit, selectCurrentSlice } from "../materials-slice"
+import { updateMaterial } from "../slice/units-reqs"
+import { saveCurrentScliceToUnit, selectCurrentSlice } from "../slice/units-slice"
 
 export const useSaveMaterial = () => {
     const dispatch = useDispatch()

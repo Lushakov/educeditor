@@ -1,7 +1,7 @@
 import {
     DropletFillIcon,
     FilmIcon,
-    ImageIcon,
+    // ImageIcon,
     ListOLIcon,
     ListULIcon,
     QuoteIcon,
@@ -11,7 +11,8 @@ import {
     TypeH2Icon,
     TypeItalicIcon,
     TypeStrikethroughIcon,
-    TypeUnderlineIcon
+    TypeUnderlineIcon,
+    ImageIcon
 } from "./toolbar-icons"
 
 export const ToolbarSwitchButtons = [
@@ -68,49 +69,49 @@ export const ToolbarMarkButtons = [
     //     icon: TypeH1Icon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
     // {
     //     icon: TypeH2Icon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
     // {
     //     icon: QuoteIcon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
     // {
     //     icon: ListULIcon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
     // {
     //     icon: ListOLIcon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
     // {
     //     icon: ImageIcon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
     // {
     //     icon: FilmIcon,
     //     action: event => {
     //         event.preventDefault()
-    //         CommandsController.toggleBoldMark(editor)
+    //         CC.toggleBoldMark(editor)
     //     }
     // },
 

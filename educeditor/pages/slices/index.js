@@ -1,15 +1,15 @@
 import MaterialsTabsLayout from "../../components/layouts/materials-tabs-layout/materials-tabs-layout"
-import Lessons from "../../features/lessons/lessons"
+import Materials from "../../features/units/units"
 import Navbar from "../../features/navbar/navbar"
 
-const LessonsPage = () => {
+const SlicesPage = () => {
     return (
         <>
             <Navbar />
             <MaterialsTabsLayout>
-                <Lessons />
+                <Materials />
             </MaterialsTabsLayout>
         </>
     )
 }
-export default LessonsPage
+export default SlicesPage

@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { API } from '../../libs/conf-axios';
+import { API } from '../../../libs/conf-axios';
+import { Teacher_Unit__Path } from '../../../libs/const-path';
 
 const to = (tail) => `/materials/${tail}`;
 
@@ -50,7 +51,7 @@ export const getMaterialDetails = createAsyncThunk(
 export const updateMaterial = createAsyncThunk(
     "materials/updateMaterialAction",
     async (_, { getState }) => {
-        const unit = getState().materials.unit
+        const unit = getState().units.unit
         try {
             const response = await API.put(to("update_material"), {
                 ID: unit._id, 
@@ -76,3 +77,56 @@ export const deleteMaterial = createAsyncThunk(
         }
     }
 );
+
+
+// ===========================================================================
+
+export const fetchUnits = createAsyncThunk(
+    "materials/fetchUnits",
+    async (_, { getState }) => {
+        const state = getState()
+        const { units } = state
+
+        try {
+            const response = await API.post(Teacher_Unit__Path.FETCH, {
+                limit: units?.unitsListReq.limit,
+                offset: units?.unitsListReq.offset
+            });
+            return response.data;
+        } catch {
+            throw new Error("Bad request");
+        }
+        
+    }
+);
+
+export const getDetails = createAsyncThunk(
+    "materials/fetchUnits",
+    async ({ID}) => {
+        try {
+            const response = await API.post(Teacher_Unit__Path.GET_DETAILS, {
+                unitID: ID
+            });
+            return response.data;
+        } catch {
+            throw new Error("Bad request");
+        }
+        
+    }
+);
+
+// export const getDetails = createAsyncThunk(
+//     "materials/fetchUnits",
+//     async ({ID}) => {
+//         try {
+//             const response = await API.post(Teacher_Unit__Path.GET_DETAILS, {
+//                 unitID: ID
+//             });
+//             return response.data;
+//         } catch {
+//             throw new Error("Bad request");
+//         }
+        
+//     }
+// );
+

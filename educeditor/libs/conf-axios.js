@@ -42,7 +42,8 @@ export const createAPI = (onUnauthorized) => {
     timeout: REQUEST_TIMEOUT,
     withCredentials: false,
     // baseURL: `http://localhost:8085/api`
-    baseURL: `http://45.135.134.152:8086/api`
+    // baseURL: `http://45.135.134.152:8086/api`
+    baseURL: BASE_API_URL
   });
 
   const onSuccess = (response) => response;
@@ -50,6 +51,7 @@ export const createAPI = (onUnauthorized) => {
     const {response} = err;
     console.log('response.status', response.status)
     if (response.status === HttpCode.UNAUTHORIZED) {onUnauthorized()}
+    console.log('err in axios', err)
     throw err;
   };
   api.interceptors.response.use(onSuccess, onFail);
@@ -58,6 +60,7 @@ export const createAPI = (onUnauthorized) => {
   const requestHandler = request => {
     request.headers['Authorization'] = Cookies.get('sessionKey')
     request.headers['Fingerprint'] = Cookies.get('Fingerprint')
+    request.headers['sessionKey'] = 'sessionKey'
     return request;
   }
   api.interceptors.request.use(request => requestHandler(request));

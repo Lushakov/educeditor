@@ -2,12 +2,12 @@ import { useState } from "react"
 import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import styled from "styled-components"
-import Modal from "../../components/modal/modal"
-import { addNewSlice, saveCurrentScliceToUnit, selectCurrentSlice, selectUnit, sliceDataTemplate, switchCurrentSlice } from "./materials-slice"
+import Modal from "../../../components/modal/modal"
+import { addNewSlice, saveCurrentScliceToUnit, selectCurrentSlice, selectUnit, sliceDataTemplate, switchCurrentSlice } from "../slice/units-slice"
 import cloneDeep from "lodash/cloneDeep";
-import { getMaterialDetails, updateMaterial } from "./materials-reqs"
-import { scrollbarHideMixin, scrollbarMixin } from "../../styles/mixins"
-import { useSaveMaterial } from "./hooks/useSaveMaterial"
+import { getMaterialDetails, updateMaterial } from "../slice/units-reqs"
+import { scrollbarHideMixin, scrollbarMixin } from "../../../styles/mixins"
+import { useSaveMaterial } from "../hooks/useSaveMaterial"
 
 const Wrapper = styled.div`
     display: flex;
@@ -43,7 +43,7 @@ const SlicesItem = styled.div`
     }
 `
 
-const MaterialIdSliceItems = () => {
+const UnitControlBlock = () => {
     const dispatch = useDispatch()
 
     const { handleSaveUnit } = useSaveMaterial()
@@ -127,4 +127,4 @@ const MaterialIdSliceItems = () => {
         </>
     )
 }
-export default MaterialIdSliceItems 
+export default UnitControlBlock 

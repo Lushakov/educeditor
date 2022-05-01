@@ -8,7 +8,11 @@ import { renderElement } from './elements/render-element'
 import { renderLeaf } from './render-leaf'
 import Toolbar from '../toolbar/toolbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCurrentSlice, changeCurrentSliceData } from '../materials/materials-slice'
+import { selectCurrentSlice, changeCurrentSliceData } from '../units/slice/units-slice'
+import { withHistory } from 'slate-history'
+import { withImages } from './hocs/with-images'
+
+
 
 
 
@@ -18,21 +22,23 @@ const EditorApp = () => {
     const currentSlice = useSelector(selectCurrentSlice)
 
     // const editor = useMemo(() => withReact(createEditor()), [])
-    const [editor] = useState(() => withReact(createEditor()))
+    // const [editor] = useState(() => withReact(createEditor()))
+    const [editor] = useState(() => withImages(withHistory(withReact(createEditor()))))
 
     const memoRenderElement = useCallback(renderElement, [])
     const memoRenderLeaf = useCallback(renderLeaf, [])
 
     return (
         <>
+            {/* TODO если не приходит никакая дата, показывать заглушку */}
             <Slate
                 editor={editor}
-                value={currentSlice.data}
+                value={currentSlice?.data}
                 onChange={value => {
                     dispatch(changeCurrentSliceData(value))
                 }}
             >
-                <Toolbar/>
+                <Toolbar editor={editor}/>
                 <Editable
                     className="p-3 bg-white shadow-sm"
                     renderElement={memoRenderElement}

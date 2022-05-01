@@ -3,11 +3,7 @@ import Navbar from "../navbar/navbar"
 const Lessons = () => {
     return (
         <>
-        <Navbar />
-        <div className="container pt-5">
-            <h2 className="mb-3">Список Уроков</h2>
-
-            <div className="list-group">
+            <div className="list-group mt-5">
                 <a href="#" className="list-group-item list-group-item-action active" aria-current="true" onClick={() => router.push(Path.MATERIALS + `/${1}`)}>
                     <div className="d-flex w-100 justify-content-between">
                         <h5 className="mb-1">List group item heading</h5>
@@ -33,8 +29,7 @@ const Lessons = () => {
                     <small className="text-muted">And some muted small print.</small>
                 </a>
             </div>
-        </div>
-    </>
+        </>
     )
 }
 export default Lessons

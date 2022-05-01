@@ -21,21 +21,21 @@ const Navbar = () => {
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav">
-                        <li className="nav-item">
+                        {/* <li className="nav-item">
                             <a
                                 className={`nav-link ${currentBasePath.includes(Path.LESSONS) ? 'active' : ''}`}
                                 aria-current="page"
                                 href="#"
                                 onClick={() => router.push(Path.LESSONS)}
                             >Мои уроки</a>
-                        </li>
+                        </li> */}
                         <li className="nav-item">
                             <a
                                 className={`nav-link ${currentBasePath.includes(Path.MATERIALS) ? 'active' : ''}`}
                                 aria-current="page"
                                 href="#"
                                 onClick={() => router.push(Path.MATERIALS)}
-                            >Мои материалы</a>
+                            >&#128214; Мои материалы</a>
                         </li>
                         <li className="nav-item">
                             <a
@@ -43,14 +43,14 @@ const Navbar = () => {
                                 aria-current="page"
                                 href="#"
                                 onClick={() => router.push(Path.STUDENTS)}
-                            >Студенты</a>
+                            >&#127891;Студенты</a>
                         </li>
                         <li className="nav-item">
                             <a
                                 className={`nav-link ${currentBasePath.includes(Path.PROFILE) ? 'active' : ''}`}
                                 href="#"
                                 onClick={() => router.push(Path.PROFILE)}
-                            >Личный кабинет</a>
+                            >&#128590;Личный кабинет</a>
                         </li>
                     </ul>
                 </div>

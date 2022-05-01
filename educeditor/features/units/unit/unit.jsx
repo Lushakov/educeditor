@@ -1,28 +1,25 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
-import EditorApp from "../editor/editor"
-import MaterialIdSliceItems from "./material-id-slice-items"
-import { getMaterialDetails } from "./materials-reqs"
-import { selectCurrentSlice, selectSlateTrigget } from "./materials-slice"
+import EditorApp from "../../editor/editor"
+import UnitControlBlock from "./unit-control-block"
+import { getDetails, getMaterialDetails } from "../slice/units-reqs"
+import { selectCurrentSlice, selectSlateTrigget } from "../slice/units-slice"
 
 
-const MaterialIdWrapper = styled.div`
+const Wrapper = styled.div`
     display: flex;
     overflow: hidden;
     height: 100vh;
     margin-top: 78px;
     height: calc(100vh - 78px);
 `
-
-
 const EditorWrapper = styled.div`
     @media (max-width: 1461px) {
         margin-top: 60px;
        
    }
 `
-
 const SlicesBlock = styled.div`
     width: 400px;
     background-color: #fbfbfb;
@@ -31,7 +28,7 @@ const SlicesBlock = styled.div`
 
 
 
-const MaterialId = ({ pid }) => {
+const Unit = ({ pid }) => {
     const dispatch = useDispatch()
 
     const currentSlice = useSelector(selectCurrentSlice)
@@ -39,21 +36,22 @@ const MaterialId = ({ pid }) => {
 
     useEffect(() => {
         if (!pid) return
-        dispatch(getMaterialDetails({ ID: pid }))
+        // dispatch(getMaterialDetails({ ID: pid }))
+        dispatch(getDetails({ ID: +pid }))
     }, [pid])
 
     return (
-        <MaterialIdWrapper>
+        <Wrapper>
             <SlicesBlock className="border-end">
-                <MaterialIdSliceItems />
+                <UnitControlBlock />
             </SlicesBlock>
             <div className="w-100" style={{ overflow: 'auto' }}>
                 <EditorWrapper className="container shadow p-0" >
                     {currentSlice && <EditorApp key={slateTrigget}/>}
                 </EditorWrapper>
             </div>
-        </MaterialIdWrapper>
+        </Wrapper>
 
     )
 }
-export default MaterialId
+export default Unit

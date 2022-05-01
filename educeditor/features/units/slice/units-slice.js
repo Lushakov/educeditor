@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMaterials, getMaterialDetails } from "./materials-reqs";
+import { fetchMaterials, fetchUnits, getMaterialDetails } from "./units-reqs";
 import cloneDeep from "lodash/cloneDeep";
 
 export const sliceDataTemplate = [
@@ -16,19 +16,43 @@ export const unitDataTemplate = [{
 const initialState = {
     isLoading: false,
     materiallList: [],
+
+    unitsList: [],
+    unitsListReq: {
+        offset: 0,
+        limit: 10,
+        filter: {},
+    },
+
+
     unit: null,
     currentSlice: null,
     slateTrigget: null,
 }
-export const selectList = state => state.materials.materiallList;
-export const selectUnit = state => state.materials.unit;
-export const selectCurrentSlice = state => state.materials.currentSlice;
-export const selectSlateTrigget = state => state.materials.slateTrigget;
+
+// export const select = state => state.units.materiallList;
+
+
+
+export const selectList = state => state.units.materiallList;
+export const selectUnitsList = state => state.units.unitsList;
+export const selectUnitsListReq = state => state.units.unitsListReq;
+export const selectUnit = state => state.units.unit;
+export const selectCurrentSlice = state => state.units.currentSlice;
+export const selectSlateTrigget = state => state.units.slateTrigget;
 
 export const slice = createSlice({
-    name: 'materials',
+    name: 'units',
     initialState,
     reducers: {
+        setUnitsListReq(state, action) {
+            state.unitsListReq = {...state.unitsListReq, ...action.payload}
+        },
+        setUnitsListFilter(state, action) {
+            state.unitsListReq.filter = {...state.unitsListReq.filter, ...action.payload}
+        },
+
+
         addNewSlice(state, action) {
             state.unit.data.push({ name: action.payload, data: cloneDeep(sliceDataTemplate) })
         },
@@ -60,6 +84,15 @@ export const slice = createSlice({
                 state.materiallList = action.payload;
             })
 
+        builder
+            .addCase(fetchUnits.pending, (state, action) => {
+                state.isLoading = true;
+            })
+            .addCase(fetchUnits.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.unitsList = action.payload;
+            })
+
 
         builder
             .addCase(getMaterialDetails.pending, (state, action) => {
@@ -75,6 +108,9 @@ export const slice = createSlice({
 });
 
 export const {
+    setUnitsListReq,
+    setUnitsListFilter,
+
     addNewSlice,
     switchCurrentSlice,
     saveCurrentScliceToUnit,

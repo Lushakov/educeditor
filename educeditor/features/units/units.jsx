@@ -4,11 +4,17 @@ import { useRouter } from 'next/router'
 import { Path } from "../../libs/const-path"
 import { useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { createMaterials, deleteMaterial, fetchMaterials } from "./materials-reqs"
+import { createMaterials, deleteMaterial, fetchMaterials, fetchUnits } from "./slice/units-reqs"
 import { useSelector } from "react-redux"
-import { selectList, unitDataTemplate } from "./materials-slice"
+import { selectList, selectUnitsList, selectUnitsListReq, setUnitsListReq, unitDataTemplate } from "./slice/units-slice"
 import { dateOption } from "../../libs/consts"
 import styled from "styled-components"
+import Pagination from '../../components/pagination/pagination'
+import MaterialsTabsLayout from "../../components/layouts/materials-tabs-layout/materials-tabs-layout"
+import Spiner from "../../components/spiner/spiner"
+import { set } from "lodash"
+import { getOffsetByPage, getPageAmount } from "../../libs/utils"
+
 
 
 const DeleteButton = styled.div`
@@ -24,6 +30,8 @@ const Materials = () => {
     const router = useRouter()
     const dispatch = useDispatch()
 
+    const [page, setPage] = useState(1)
+
     const [isModalCreate, setIsModalCreate] = useState(false)
     const [isModalDelete, setIsModalDelete] = useState(false)
     const [name, setName] = useState('')
@@ -32,6 +40,8 @@ const Materials = () => {
     const [currentMaterialID, setCurrentMaterialID] = useState(null)
 
     const materialList = useSelector(selectList)
+    const unitsListReq = useSelector(selectUnitsListReq)
+    const unitsList = useSelector(selectUnitsList)
 
     const handleCreateButton = async () => {
         try {
@@ -50,7 +60,7 @@ const Materials = () => {
     const handleDeleteButton = async () => {
         try {
             setIsLoading(true)
-            const result = await dispatch(deleteMaterial({ID: currentMaterialID})).unwrap()
+            const result = await dispatch(deleteMaterial({ ID: currentMaterialID })).unwrap()
             setIsLoading(false)
             setErrMsg('')
             setIsModalDelete(false)
@@ -61,15 +71,13 @@ const Materials = () => {
     }
 
     useEffect(() => {
-        dispatch(fetchMaterials())
-    }, [])
+        if (!unitsListReq) return
+        dispatch(fetchUnits())
+    }, [unitsListReq])
 
     return (
         <>
-            <Navbar />
-            <div className="container pt-5">
-                <h2>Список материалов</h2>
-
+            <div className="text-end">
                 <button
                     type="button"
                     class="btn btn-primary mt-3"
@@ -77,42 +85,58 @@ const Materials = () => {
                 >
                     Создать материал
                 </button>
-
-                <div className="list-group mt-3">
-                    {materialList?.data?.map((item) => (
-                        <a
-                            className="list-group-item list-group-item-action"
-                            aria-current="true" onClick={() => router.push(Path.MATERIALS + `/${item._id}`)}
-                        >
-                            <div className="d-flex w-100 justify-content-between">
-                                <h5 className="mb-1">{item.name}</h5>
-                                <small>{new Date(item.updatedAt * 1000).toLocaleString("ru", dateOption)}</small>
-                            </div>
-                            <p className="mb-1">Some placeholder content in a paragraph.</p>
-                            <dev>
-                                <DeleteButton
-                                    onClick={(event) => {
-                                        event.stopPropagation()
-                                        setIsModalDelete(true)
-                                        setCurrentMaterialID(item._id)
-                                    }}
-                                >
-                                    Удалить
-                                </DeleteButton>
-                            </dev>
-                        </a>
-                    ))}
-                </div>
             </div>
 
+            <div className="list-group mt-3">
+                {unitsList?.data?.map((item) => (
+                    <a
+                        className="list-group-item list-group-item-action"
+                        aria-current="true" onClick={() => router.push(Path.UNITS + `/${item.ID}`)}
+                    >
+                        <div className="d-flex w-100 justify-content-between">
+                            <h5 className="mb-1">{item.title}</h5>
+                            <small>{new Date(item.updatedAt * 1000).toLocaleString("ru", dateOption)}</small>
+                        </div>
+                        <p className="mb-1">Some placeholder content in a paragraph.</p>
+                        <dev>
+                            <DeleteButton
+                                onClick={(event) => {
+                                    event.stopPropagation()
+                                    setIsModalDelete(true)
+                                    setCurrentMaterialID(item._id)
+                                }}
+                            >
+                                Удалить
+                            </DeleteButton>
+                        </dev>
+                    </a>
+                ))}
+            </div>
+
+            <div className="d-flex justify-content-center mt-4 mb-5">
+                <Pagination
+                    page={page}
+                    count={getPageAmount(unitsList.totalLen, unitsListReq.limit)}
+                    onChange={(event, value) => {
+                        dispatch(setUnitsListReq({
+                            offset: getOffsetByPage(value, unitsListReq.limit)
+                        }))
+                        setPage(value)
+                    }}
+                />
+            </div>
+
+
+
+
             {/* Modal create*/}
-            {isModalCreate
-                && <Modal
+            {isModalCreate &&
+                <Modal
+                    title="Создать материал"
                     onCloseModal={() => {
                         setIsModalCreate(false)
                         setErrMsg('')
                     }}
-                    title="Создать материал"
                 >
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Название</label>
@@ -130,13 +154,13 @@ const Materials = () => {
                 </Modal>}
 
             {/* Modal delete*/}
-            {isModalDelete
-                && <Modal
+            {isModalDelete &&
+                <Modal
+                    title="Удалить материал?"
                     onCloseModal={() => {
                         setIsModalDelete(false)
                         setErrMsg('')
                     }}
-                    title="Удалить материал?"
                 >
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">
