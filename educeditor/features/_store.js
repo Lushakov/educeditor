@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
 
-import units from './units/slice/units-slice';
+import units from './units/_feature/units-slice';
 
 
 export default configureStore({

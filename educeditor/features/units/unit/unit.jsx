@@ -3,8 +3,8 @@ import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import EditorApp from "../../editor/editor"
 import UnitControlBlock from "./unit-control-block"
-import { getDetails, getMaterialDetails } from "../slice/units-reqs"
-import { selectCurrentSlice, selectSlateTrigget } from "../slice/units-slice"
+import { getUnitDetails, getMaterialDetails } from "../_feature/units-reqs"
+import { selectCurrentSlice, selectSlateTrigget } from "../_feature/units-slice"
 
 
 const Wrapper = styled.div`
@@ -37,7 +37,7 @@ const Unit = ({ pid }) => {
     useEffect(() => {
         if (!pid) return
         // dispatch(getMaterialDetails({ ID: pid }))
-        dispatch(getDetails({ ID: +pid }))
+        dispatch(getUnitDetails({ ID: +pid }))
     }, [pid])
 
     return (

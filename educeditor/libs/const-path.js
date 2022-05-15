@@ -49,8 +49,8 @@ export const Teacher_Unit__Path = {
     ADD_NEW_SLICE_IN_UNIT: TEACHER_UNIT + '/add_new_slice_in_unit',
     DELETE_SLICE_FROM_UNIT: TEACHER_UNIT + '/delete_slice_from_unit',
     DELETE_UNIT: TEACHER_UNIT + '/delete_unit',
-
 }
+
 
 /* CDN */
 const CDN = '/cdn'

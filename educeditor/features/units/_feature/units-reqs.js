@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { API } from '../../../libs/conf-axios';
-import { Teacher_Unit__Path } from '../../../libs/const-path';
+import { Teacher_Slice__Path, Teacher_Unit__Path } from '../../../libs/const-path';
 
 const to = (tail) => `/materials/${tail}`;
 
@@ -100,8 +100,8 @@ export const fetchUnits = createAsyncThunk(
     }
 );
 
-export const getDetails = createAsyncThunk(
-    "materials/fetchUnits",
+export const getUnitDetails = createAsyncThunk(
+    "materials/getUnitDetails",
     async ({ID}) => {
         try {
             const response = await API.post(Teacher_Unit__Path.GET_DETAILS, {
@@ -114,6 +114,37 @@ export const getDetails = createAsyncThunk(
         
     }
 );
+
+export const updateSlice = createAsyncThunk(
+    "materials/updateSlice",
+    async (_, { getState }) => {
+        const state = getState()
+        const { units } = state
+        console.log('Сохраниение 2', units)
+        try {
+            const response = await API.put(Teacher_Slice__Path.UPDATE, {
+                sliceID: units?.currentSlice?.sliceID,
+                title: units?.currentSlice?.title,
+                description: units?.currentSlice?.description,
+                data: units?.currentSlice?.data,
+            });
+            return response.data;
+        } catch {
+            throw new Error("Bad request");
+        }
+        
+    }
+);
+
+// "sliceID": 1,
+// 	"title": "t222est",
+// 	"description": "222test",
+// 	"data": {
+// 		"a": "b222",
+// 		"c": "222d"
+// 	}
+
+
 
 // export const getDetails = createAsyncThunk(
 //     "materials/fetchUnits",

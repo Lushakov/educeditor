@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { updateMaterial } from "../slice/units-reqs"
-import { saveCurrentScliceToUnit, selectCurrentSlice } from "../slice/units-slice"
+import { updateMaterial, updateSlice } from "../units-reqs"
+import { saveCurrentScliceToUnit, selectCurrentSlice } from "../units-slice"
 
 export const useSaveMaterial = () => {
     const dispatch = useDispatch()
@@ -14,7 +14,8 @@ export const useSaveMaterial = () => {
         dispatch(saveCurrentScliceToUnit())
         setIsSaving(true)
         try {
-            await dispatch(updateMaterial()).unwrap()
+            // await dispatch(updateMaterial()).unwrap()
+            await dispatch(updateSlice()).unwrap()
         } catch (err) {
             setSavingErr(err)
         }

@@ -3,11 +3,11 @@ import { useDispatch } from "react-redux"
 import { useSelector } from "react-redux"
 import styled from "styled-components"
 import Modal from "../../../components/modal/modal"
-import { addNewSlice, saveCurrentScliceToUnit, selectCurrentSlice, selectUnit, sliceDataTemplate, switchCurrentSlice } from "../slice/units-slice"
+import { addNewSlice, saveCurrentScliceToUnit, selectCurrentSlice, selectUnit, sliceDataTemplate, switchCurrentSlice } from "../_feature/units-slice"
 import cloneDeep from "lodash/cloneDeep";
-import { getMaterialDetails, updateMaterial } from "../slice/units-reqs"
+import { getMaterialDetails, updateMaterial } from "../_feature/units-reqs"
 import { scrollbarHideMixin, scrollbarMixin } from "../../../styles/mixins"
-import { useSaveMaterial } from "../hooks/useSaveMaterial"
+import { useSaveMaterial } from "../_feature/hooks/useSaveMaterial"
 
 const Wrapper = styled.div`
     display: flex;
@@ -58,7 +58,7 @@ const UnitControlBlock = () => {
 
     const handleCreateButton = async () => {
         if (!name) { setErrMsg('Введите название сайса'); return; }
-        const index = unit.data.findIndex(item => item.name === name)
+        const index = unit.sliceList.findIndex(item => item.name === name)
         if (index !== -1) { setErrMsg('Такое имя уже существует'); return; }
 
         dispatch(addNewSlice(name))
@@ -83,17 +83,17 @@ const UnitControlBlock = () => {
             <Wrapper>
                 <SlicesBlock>
                     <h4>{unit?.name}</h4>
-                    {unit?.data?.map(({ name }) => (
+                    {unit?.sliceList?.map(({ title }) => (
                         <SlicesItem 
                             class=""
-                            active={name === currentSlice?.name}
+                            active={title === currentSlice?.title}
                             onClick={() => {
                                 dispatch(saveCurrentScliceToUnit())
-                                dispatch(switchCurrentSlice(name))
+                                dispatch(switchCurrentSlice(title))
                                 handleSaveUnit()
                             }}
                         >
-                            <div class="fw-bold">{name}</div>
+                            <div class="fw-bold">{title}</div>
                             <div>Здесь управление слайсом</div>
                         </SlicesItem>
                     ))}

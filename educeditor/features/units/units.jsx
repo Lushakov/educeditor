@@ -4,9 +4,9 @@ import { useRouter } from 'next/router'
 import { Path } from "../../libs/const-path"
 import { useDispatch } from "react-redux"
 import { useEffect, useState } from "react"
-import { createMaterials, deleteMaterial, fetchMaterials, fetchUnits } from "./slice/units-reqs"
+import { createMaterials, deleteMaterial, fetchMaterials, fetchUnits } from "./_feature/units-reqs"
 import { useSelector } from "react-redux"
-import { selectList, selectUnitsList, selectUnitsListReq, setUnitsListReq, unitDataTemplate } from "./slice/units-slice"
+import { selectList, selectUnitsList, selectUnitsListReq, setUnitsListReq, unitDataTemplate } from "./_feature/units-slice"
 import { dateOption } from "../../libs/consts"
 import styled from "styled-components"
 import Pagination from '../../components/pagination/pagination'
@@ -39,7 +39,7 @@ const Materials = () => {
     const [errMsg, setErrMsg] = useState('')
     const [currentMaterialID, setCurrentMaterialID] = useState(null)
 
-    const materialList = useSelector(selectList)
+    // const materialList = useSelector(selectUnitsList)
     const unitsListReq = useSelector(selectUnitsListReq)
     const unitsList = useSelector(selectUnitsList)
 
@@ -51,7 +51,7 @@ const Materials = () => {
             setName('')
             setErrMsg('')
             setIsModalCreate(false)
-            dispatch(fetchMaterials())
+            dispatch(fetchUnits())
         } catch (err) {
             setErrMsg(err.message || 'Ошибка создания')
         }
@@ -64,7 +64,7 @@ const Materials = () => {
             setIsLoading(false)
             setErrMsg('')
             setIsModalDelete(false)
-            dispatch(fetchMaterials())
+            dispatch(fetchUnits())
         } catch (err) {
             setErrMsg(err.message || 'Ошибка удаления')
         }

@@ -8,7 +8,7 @@ import { renderElement } from './elements/render-element'
 import { renderLeaf } from './render-leaf'
 import Toolbar from '../toolbar/toolbar'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectCurrentSlice, changeCurrentSliceData } from '../units/slice/units-slice'
+import { selectCurrentSlice, changeCurrentSliceData } from '../units/_feature/units-slice'
 import { withHistory } from 'slate-history'
 import { withImages } from './hocs/with-images'
 

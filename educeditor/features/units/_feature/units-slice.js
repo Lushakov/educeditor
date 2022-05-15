@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchMaterials, fetchUnits, getMaterialDetails } from "./units-reqs";
+import { fetchMaterials, fetchUnits, getMaterialDetails, getUnitDetails } from "./units-reqs";
 import cloneDeep from "lodash/cloneDeep";
 
 export const sliceDataTemplate = [
@@ -9,13 +9,13 @@ export const sliceDataTemplate = [
     },
 ]
 export const unitDataTemplate = [{
-    name: 'Новый слайс',
+    title: 'Новый слайс',
     data: cloneDeep(sliceDataTemplate)
 }]
 
 const initialState = {
     isLoading: false,
-    materiallList: [],
+    // materiallList: [],
 
     unitsList: [],
     unitsListReq: {
@@ -34,7 +34,7 @@ const initialState = {
 
 
 
-export const selectList = state => state.units.materiallList;
+// export const selectList = state => state.units.materiallList;
 export const selectUnitsList = state => state.units.unitsList;
 export const selectUnitsListReq = state => state.units.unitsListReq;
 export const selectUnit = state => state.units.unit;
@@ -54,17 +54,17 @@ export const slice = createSlice({
 
 
         addNewSlice(state, action) {
-            state.unit.data.push({ name: action.payload, data: cloneDeep(sliceDataTemplate) })
+            state.unit.sliceList.push({ title: action.payload, data: cloneDeep(sliceDataTemplate) })
         },
         switchCurrentSlice(state, action) { //copy from currentSlice to unit by slice neme 
             // const sliceIndex = state.unit.data.findIndex(item => item.name === state.currentSlice.name)
             // state.unit.data[sliceIndex] = cloneDeep(state.currentSlice)
-            state.currentSlice = cloneDeep(state.unit.data.find(item => item.name === action.payload))
+            state.currentSlice = cloneDeep(state.unit.sliceList.find(item => item.title === action.payload))
             state.slateTrigget = Math.random()
         },
         saveCurrentScliceToUnit(state, action) {
-            const sliceIndex = state.unit.data.findIndex(item => item.name === state.currentSlice.name)
-            state.unit.data[sliceIndex] = cloneDeep(state.currentSlice)
+            const sliceIndex = state.unit.sliceList.findIndex(item => item.title === state.currentSlice.title)
+            state.unit.sliceList[sliceIndex] = cloneDeep(state.currentSlice)
         },
         changeCurrentSliceData(state, action) {
             state.currentSlice.data = action.payload
@@ -75,14 +75,14 @@ export const slice = createSlice({
     },
 
     extraReducers: (builder) => {
-        builder
-            .addCase(fetchMaterials.pending, (state, action) => {
-                state.isLoading = true;
-            })
-            .addCase(fetchMaterials.fulfilled, (state, action) => {
-                state.isLoading = false;
-                state.materiallList = action.payload;
-            })
+        // builder
+        //     .addCase(fetchMaterials.pending, (state, action) => {
+        //         state.isLoading = true;
+        //     })
+        //     .addCase(fetchMaterials.fulfilled, (state, action) => {
+        //         state.isLoading = false;
+        //         state.materiallList = action.payload;
+        //     })
 
         builder
             .addCase(fetchUnits.pending, (state, action) => {
@@ -95,13 +95,13 @@ export const slice = createSlice({
 
 
         builder
-            .addCase(getMaterialDetails.pending, (state, action) => {
+            .addCase(getUnitDetails.pending, (state, action) => {
                 state.isLoading = true;
             })
-            .addCase(getMaterialDetails.fulfilled, (state, action) => {
+            .addCase(getUnitDetails.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.unit = action.payload;
-                state.currentSlice = action.payload.data[0]
+                state.currentSlice = action.payload?.sliceList[0]
                 state.slateTrigget = Math.random()
             })
     },
