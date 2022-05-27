@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import EditorApp from "../../editor/editor"
-import UnitControlBlock from "./unit-control-block"
+import UnitControlBlock from "./unit-control-block/unit-control-block"
 import { getUnitDetails, getMaterialDetails } from "../_feature/units-reqs"
 import { selectCurrentSlice, selectSlateTrigget } from "../_feature/units-slice"
 

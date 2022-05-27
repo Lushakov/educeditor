@@ -26,7 +26,7 @@ const DeleteButton = styled.div`
 `
 
 
-const Materials = () => {
+const Units = () => {
     const router = useRouter()
     const dispatch = useDispatch()
 
@@ -180,4 +180,4 @@ const Materials = () => {
         </>
     )
 }
-export default Materials
+export default Units

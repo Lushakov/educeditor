@@ -3,7 +3,7 @@ import { useSlate } from "slate-react";
 import styled from "styled-components"
 import { CC } from "../editor/commands-controller/commands-controller"
 import { CDN_UploadByFile, editorReqAborting } from "../editor/slice/editor-req";
-import { useSaveMaterial } from "../units/_feature/hooks/useSaveMaterial";
+import { useSaveSlice } from "../units/_feature/hooks/useSaveSlice";
 import { ToolbarSwitchButtons, ToolbarMarkButtons } from "./toolbar-const";
 import {
     ImageIcon,
@@ -146,7 +146,7 @@ const Menu = styled.div`
 
 const EditorToolbar = ({ editor }) => {
     const dispatch = useDispatch()
-    const { handleSaveUnit } = useSaveMaterial()
+    const { handleSaveUnit } = useSaveSlice()
 
     const [isSpinning, setIsSpinning] = useState(false)
     const abortControllerRef = useRef(null);

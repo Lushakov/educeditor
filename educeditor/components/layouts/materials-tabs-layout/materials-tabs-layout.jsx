@@ -4,21 +4,18 @@ import { MaterialsPath } from "../../../libs/const-path"
 
 const TabList = [
     {
-        path: MaterialsPath.LESSONS,
-        name: 'Уроки'
+        path: MaterialsPath.UNITS,
+        name: 'Темы уроков'
     },
     {
         path: MaterialsPath.COURSES,
         name: 'Курсы'
     },
     {
-        path: MaterialsPath.UNITS,
-        name: 'Темы уроков'
+        path: MaterialsPath.TOOLS,
+        name: 'Инструменты'
     },
-    {
-        path: MaterialsPath.SLICES,
-        name: 'Кусочки'
-    },
+
 ]
 
 const MaterialsTabsLayout = ({ children }) => {

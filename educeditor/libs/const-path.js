@@ -23,7 +23,8 @@ export const MaterialsPath = {
     LESSONS: '/lessons',
     UNITS: '/units',
     COURSES: '/courses',
-    SLICES: '/slices'
+    SLICES: '/slices',
+    TOOLS: '/tools',
 }
 
 

@@ -4,7 +4,7 @@ import { createEditor, Editor, Transforms } from 'slate'
 
 import { Slate, Editable, withReact, DefaultElement } from 'slate-react'
 import { handleKeyDown } from './handle-key-down'
-import { renderElement } from './elements/render-element'
+import { renderElement } from './toolkits/render-element'
 import { renderLeaf } from './render-leaf'
 import Toolbar from '../toolbar/toolbar'
 import { useDispatch, useSelector } from 'react-redux'
@@ -27,6 +27,7 @@ const EditorApp = () => {
 
     const memoRenderElement = useCallback(renderElement, [])
     const memoRenderLeaf = useCallback(renderLeaf, [])
+
 
     return (
         <>

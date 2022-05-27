@@ -31,10 +31,10 @@ const Navbar = () => {
                         </li> */}
                         <li className="nav-item">
                             <a
-                                className={`nav-link ${currentBasePath.includes(Path.MATERIALS) ? 'active' : ''}`}
+                                className={`nav-link ${currentBasePath.includes(Path.UNITS) ? 'active' : ''}`}
                                 aria-current="page"
                                 href="#"
-                                onClick={() => router.push(Path.MATERIALS)}
+                                onClick={() => router.push(Path.UNITS)}
                             >&#128214; Мои материалы</a>
                         </li>
                         <li className="nav-item">
@@ -44,6 +44,21 @@ const Navbar = () => {
                                 href="#"
                                 onClick={() => router.push(Path.STUDENTS)}
                             >&#127891;Студенты</a>
+                        </li>
+                        <li className="nav-item">
+                            <a
+                                className={`nav-link ${currentBasePath.includes(Path.LESSONS) ? 'active' : ''}`}
+                                aria-current="page"
+                                href="#"
+                                onClick={() => router.push(Path.LESSONS)}
+                            >&#9997;Уроки</a>
+                        </li>
+                        <li className="nav-item">
+                            <a
+                                className={`nav-link ${currentBasePath.includes(Path.PROFILE) ? 'active' : ''}`}
+                                href="#"
+                                onClick={() => router.push(Path.PROFILE)}
+                            >&#127914;Маркет</a>
                         </li>
                         <li className="nav-item">
                             <a

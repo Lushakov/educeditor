@@ -101,7 +101,7 @@ export const slice = createSlice({
             .addCase(getUnitDetails.fulfilled, (state, action) => {
                 state.isLoading = false;
                 state.unit = action.payload;
-                state.currentSlice = action.payload?.sliceList[0]
+                state.currentSlice = action.payload?.sliceList?.[0]
                 state.slateTrigget = Math.random()
             })
     },

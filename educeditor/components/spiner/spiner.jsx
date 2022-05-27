@@ -25,7 +25,11 @@ const CloseBlock = styled.div`
     
 `
 
-const Spiner = ({ isSpinning, onClose, explainText }) => {
+const Spiner = ({ 
+    isSpinning, 
+    onClose=false, 
+    explainText 
+}) => {
     return (
         <>
             {isSpinning && <Background>
