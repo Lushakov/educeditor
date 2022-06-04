@@ -1,7 +1,7 @@
 import { imageConfigDefault } from "next/dist/server/image-config"
 import { useState } from "react"
 import styled from "styled-components"
-import { scrollbarHideMixin, scrollbarMixin } from "../../../../../styles/mixins"
+import { scrollbarHideMixin, scrollbarMixin } from "../../styles/mixins"
 import { dataToolKit } from "./const"
 import ToolDetails from "./tool-details"
 import Toolkit from "./tool-kit"

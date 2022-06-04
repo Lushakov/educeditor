@@ -10,7 +10,10 @@ import {
     useFocused,
     withReact,
 } from 'slate-react'
-import { CC } from "../../../commands-controller/commands-controller"
+import { CC } from "../../../../editor/commands-controller/commands-controller"
+
+import { insertImage } from "./controller"
+export const insert = insertImage
 
 const Img = styled.img`
     display: block;
@@ -62,4 +65,4 @@ const Image = ({ attributes, children, element }) => {
         </div>
     )
 }
-export default Image
+export default Image 

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled from "styled-components"
 import Slices from "./slices/slices"
-import Toolkits from "./toolkits/tool-kits"
+import Toolkits from "../../../toolkits/tool-kits"
 
 const style = {
     heigthMax: '15px',

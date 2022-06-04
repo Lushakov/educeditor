@@ -10,7 +10,7 @@ import {
     useFocused,
     withReact,
 } from 'slate-react'
-import { CC } from "../../../commands-controller/commands-controller"
+import { CC } from "../../../../editor/commands-controller/commands-controller"
 
 const Img = styled.img`
     display: block;

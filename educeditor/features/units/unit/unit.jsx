@@ -1,10 +1,10 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import styled from "styled-components"
 import EditorApp from "../../editor/editor"
 import UnitControlBlock from "./unit-control-block/unit-control-block"
 import { getUnitDetails, getMaterialDetails } from "../_feature/units-reqs"
-import { selectCurrentSlice, selectSlateTrigget } from "../_feature/units-slice"
+import { selectCurrentSlice, selectSlateTrigget, selectUnit } from "../_feature/units-slice"
 
 
 const Wrapper = styled.div`
@@ -26,17 +26,17 @@ const SlicesBlock = styled.div`
     transition: .2s;
 `
 
-
+const toolPathList = [
+    'languages/image'
+]
 
 const Unit = ({ pid }) => {
     const dispatch = useDispatch()
-
     const currentSlice = useSelector(selectCurrentSlice)
     const slateTrigget = useSelector(selectSlateTrigget)
 
     useEffect(() => {
         if (!pid) return
-        // dispatch(getMaterialDetails({ ID: pid }))
         dispatch(getUnitDetails({ ID: +pid }))
     }, [pid])
 
@@ -47,11 +47,14 @@ const Unit = ({ pid }) => {
             </SlicesBlock>
             <div className="w-100" style={{ overflow: 'auto' }}>
                 <EditorWrapper className="container shadow p-0" >
-                    {currentSlice && <EditorApp key={slateTrigget}/>}
+                    <EditorApp
+                        toolPathList={toolPathList}
+                        key={slateTrigget}
+                        // trigger={slateTrigget}
+                    />
                 </EditorWrapper>
             </div>
         </Wrapper>
-
     )
 }
 export default Unit
