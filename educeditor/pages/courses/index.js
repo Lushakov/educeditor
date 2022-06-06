@@ -7,7 +7,7 @@ const CoursesPage = () => {
         <>
             <Navbar />
             <MaterialsTabsLayout>
-                <Lessons />
+                <div>Курсы</div>
             </MaterialsTabsLayout>
         </>
     )

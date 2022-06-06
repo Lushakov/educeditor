@@ -52,6 +52,13 @@ export const Teacher_Unit__Path = {
     DELETE_UNIT: TEACHER_UNIT + '/delete_unit',
 }
 
+const TEACHER_SCHEDULE = '/teacher/schedule'
+export const Teacher_Schedule__Path = {
+    CREATE: TEACHER_SCHEDULE + '/create',
+    FETCH: TEACHER_SCHEDULE + '/fetch',
+    CANCEL_LESSON: TEACHER_SCHEDULE + '/cancel_lesson',
+}
+
 
 /* CDN */
 const CDN = '/cdn'
